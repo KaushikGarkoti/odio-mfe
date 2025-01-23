@@ -1,0 +1,224 @@
+.rec-carousel-wrapper .rec-carousel .rec-arrow {
+    width: 0;
+    font-size: 25px;
+    min-width: 0px;
+}
+
+.rec-carousel-wrapper .rec-carousel [type=button]:not(:disabled) {
+    color: #999;
+}
+
+.custom-rc-slider .rec-carousel-wrapper .rec-carousel [type=button]:not(:disabled) {
+    color: #000;
+}
+
+.graphCarousel-val {
+    font-weight: 500;
+}
+
+.f12 {
+    font-size: 12px !important;
+}
+
+.dashboard-top-seller-card .btn,
+.view-all-agents-btn .btn {
+    line-height: 1.5;
+}
+
+.h_effect li .nav-link.active {
+    color: #0077B6;
+}
+
+.h_effect li button {
+    color: #585858;
+}
+
+/* .h_effect .tab-content #controlled-tab-example-tabpane-home>div .apexcharts-canvas */
+#apexchartssrnc49ve .apexcharts-yaxistooltip {
+    display: none;
+}
+
+.apexcharts-canvas {
+    margin: auto;
+}
+
+.custom-rc-slider .rec-slider-container {
+    margin: 0 5px 0 20px !important;
+}
+
+.custom-rc-slider .rec-carousel {
+    padding: 0 15px 0 0px !important;
+}
+
+.dash-wrapper-two {
+    margin: -1.5rem 0.5rem -5.5rem -1.5rem;
+    padding: 0rem 0.5rem 6.5rem 0.5rem;
+}
+
+.card-remover {
+    border: 0 solid transparent;
+    box-shadow: none;
+    margin-bottom: 0rem;
+}
+
+.dasboard-card-widgets {
+    background: #fff;
+    padding: 15px 15px;
+    border-radius: 5px;
+    border: 0 solid transparent;
+    margin-bottom: 0rem;
+    box-shadow: 0 2px 3px 0 rgb(218 218 253 / 65%), 0 2px 4px 0 rgb(206 206 238 / 54%);
+}
+
+.moment-chart-box {
+    height: 310px;
+}
+
+.aht-chart-box {
+    height: 350px;
+}
+
+.dasboard-card-widgets div p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 45px;
+    text-overflow: ellipsis;
+    width: 98%;
+}
+
+.sellers-loader {
+    height: 290px !important;
+}
+
+.wordCloud-words {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 1px 5px 2px;
+    line-height: 2;
+    white-space: nowrap;
+    margin: 10px 9px;
+}
+
+.top-seller-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 97%;
+    text-transform: capitalize;
+}
+
+.dashboard_filter_class .switcher-btn {
+    top: 115px;
+}
+
+.dashboard_filter_class .rec-slider-container {
+    border-left: 1px dashed #cccccc;
+    margin-left: 24px;
+    border-color: #cccccc !important;
+}
+
+.carusal-data {
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-direction: column;
+}
+
+.call-fillter-date .react-datepicker-wrapper .react-datepicker__input-container input {
+    margin: 0 4px;
+    background: transparent;
+    box-shadow: none;
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    text-align: center;
+    width: 70px;
+    font-size: 12px;
+    line-height: 1;
+    height: 22px;
+}
+
+.call-fillter-date .MuiFormControl-root .MuiInputBase-root.MuiOutlinedInput-root input {
+    margin: 0 4px;
+    background: transparent;
+    box-shadow: none;
+    border: 2px solid rgb(133, 133, 133);
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    text-align: center;
+    width: 70px;
+    font-size: 12px;
+    line-height: 1;
+    height: 22px;
+    padding: 0 !important;
+}
+
+.call-fillter-date .MuiFormControl-root .MuiInputBase-root.MuiOutlinedInput-root {
+    border: 0 !important;
+}
+
+.dashboard-modal.modal-body .form-check .form-check-input {
+    padding: 9px 20px !important;
+    border-radius: 10px !important;
+    margin-right: 10px;
+}
+
+.input-box-field {
+    background: transparent;
+    color: #fff;
+    box-shadow: none !important;
+    border-right: 0 !important;
+    border-left: 0 !important;
+    border-top: 0 !important;
+    border-radius: 0 !important;
+    text-align: center;
+    width: 70px;
+    font-size: 12px;
+    line-height: 1;
+    height: 22px;
+}
+
+.modal-header-filter .dashboard-filter-group {
+    display: flex;
+    align-items: baseline;
+}
+
+.dashboard-loder .spinner-border {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: -0.125em;
+    border: 0.2em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: .75s linear infinite spinner-border;
+}
+
+.carousel-arrows {
+    width: 0;
+    font-size: 25px;
+    min-width: 0px;
+    background-color: #082545;
+    border: none;
+    color: #999 !important;
+    cursor: not-allowed;
+}
+
+.doubleCarousel-arrows {
+    width: 0;
+    font-size: 25px;
+    min-width: 0px;
+    color: #000 !important;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    cursor: not-allowed;
+}
+
+.rec-carousel button:disabled {
+    border-color: transparent;
+    background-color: transparent;
+}

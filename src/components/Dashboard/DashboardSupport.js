@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
-import dashboardService from "../Services/dashboard.service";
+import dashboardService from "@services";
 import Dashboards from "./DashboardSales/SalesDashboard/Dashboards"
-import { USER_DETAIL } from "../../Constants/constant";
-import Loading from "../Commons/Loading"
+import { USER_DETAIL } from "@constants";
+import Loading from "./Loading"
 
 export default function DashboardSupport() {
 	const [loader, setLoader] = useState()

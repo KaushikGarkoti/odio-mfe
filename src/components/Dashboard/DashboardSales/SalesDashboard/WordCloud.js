@@ -1,10 +1,10 @@
 import { Card, Col, Popover, OverlayTrigger } from "react-bootstrap";
 import React, { useState, useEffect, useRef } from "react";
-import Loading from "../../../Commons/Loading"
+import Loading from "../../Loading"
 import AnyChart from "anychart-react"
-import { apiCall } from "../../../Services/Interceptor";
+import { apiCall } from "@utils";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { USER_DETAIL } from "../../../../Constants/constant";
+import { USER_DETAIL } from "@constants";
 import { useDataDispatch, useDataState } from "./WordCloudApiState";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';

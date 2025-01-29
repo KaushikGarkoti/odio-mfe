@@ -1,6 +1,6 @@
 import React from "react";
 import { OverlayTrigger, Popover } from "react-bootstrap"
-import Loading from "../../../Commons/Loading";
+import Loading from "../../Loading";
 
 
 export default function DoubleCarouselCard(props) {

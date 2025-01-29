@@ -1,11 +1,11 @@
 import { Card, Col } from "react-bootstrap";
 import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
-import dashboardService from "../../../Services/dashboard.service"
+import dashboardService from "@services"
 import * as React from 'react'
 import PerformanceModal from "./PerformanceModal";
 import { Popover, OverlayTrigger } from "react-bootstrap";
-import Loading from "../../../Commons/Loading";
+import Loading from "../../Loading";
 
 export default function MomentAndSignalsPerformance(props) {
   const [show, setShow] = useState(false)

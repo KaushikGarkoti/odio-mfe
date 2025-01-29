@@ -1,0 +1,8 @@
+export const SET_USER_DETAILS = 'USER_DETAILS';
+export const SIGN_IN = 'SIGN_IN';
+export const REQUEST_FAILURE = 'REQUEST_FAILURE';
+export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
+export const SET_LOADER = 'SET_LOADER';
+export const SIGN_OUT ='SIGN_OUT';
+export const SET_USER_PERMISSION = 'FETCH_USER_PERMISSION';
+export const SET_USERNAME = 'SET_USERNAME'

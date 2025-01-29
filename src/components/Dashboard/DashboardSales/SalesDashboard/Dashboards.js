@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 import "../../Dashboard.css";
-import Filter from "../../../Filter/Filter";
+import Filter from "../../../Filter";
 import SalesDashBoardModel from "./SalesDashBoardModel";
-import { USER_DETAIL } from "../../../../Constants/constant";
+import { USER_DETAIL } from "@constants";
 import SingleCarouselManager from "./singleCarouselManager";
 import DoubleCarouselManager from "./DoubleCarouselManager";
 import DashboardComponentsManager from "./DashboardComponentsManager";
-import { themeButtonPrimary, themePrimary } from "../../../../assets/styles";
-import { positionFormat } from "../../../Commons/DateFormatter";
+import { themeButtonPrimary, themePrimary } from "@assets/css";
+import { positionFormat } from "@utils";
+import dashboardService from "../../../../services/dashboard.service";
 
 export default function Dashboards(props) {
  const [show, setShow] = useState(false);
@@ -16,8 +17,11 @@ export default function Dashboards(props) {
  const [widgetData, setWidgetData] = useState();
  const [viewItems, setViewItems] = useState({});
  const [defaultFilteredData, setDefaultFilteredData] = useState();
+ const[dasboardStructure, setDasboardStructure] =useState([])
+ const [loader, setLoader] = useState()
+
  let p = localStorage.getItem(USER_DETAIL);
- let data = JSON.parse(p);
+ let data = p ?JSON.parse(p): {};
 
  const closeButton = () => setShow(false);
 
@@ -26,10 +30,10 @@ export default function Dashboards(props) {
  };
 
  const carouselStructure = () => {
-  if (props?.dasboardStructure?.[1]?.list) {
-   const rawData = props?.dasboardStructure?.[1]?.list;
+  if (dasboardStructure?.[1]?.list) {
+   const rawData = dasboardStructure?.[1]?.list;
    const arrayList = [];
-   for (let i = 0; i < rawData.length; i += 2) {
+   for (let i = 0; i < rawData?.length; i += 2) {
     const chunk = rawData.slice(i, i + 2);
     arrayList.push(chunk);
    }
@@ -42,7 +46,7 @@ export default function Dashboards(props) {
  };
 
  const handleScroll = () => {
-  let ids = (props?.dasboardStructure || [])
+  let ids = (dasboardStructure || [])
    .map((x, i) => (x?.type === "FIXED_ROW" ? `FIXED_ROW-${i}` : ""))
    ?.filter((x) => x);
   (ids || [])?.forEach((x, index) => {
@@ -72,6 +76,20 @@ export default function Dashboards(props) {
    }
   });
  };
+ function getDashboardSt() {
+  let val = { "clientExternalId": data.externalId, "entityType": "SALES" }
+  if (p.userRole != 'AGENT') {
+    dashboardService.getDashboard(val).then(res => {
+      setDasboardStructure(res ? res.data.data : '');
+    })
+  }
+}
+useEffect(() => {
+  document.title = "Dashboard - Odio";
+  setLoader(false);
+  getDashboardSt()
+}, [])
+
  useEffect(() => {
   window.addEventListener("scroll", handleScroll);
   return () => {
@@ -86,6 +104,8 @@ export default function Dashboards(props) {
   setShow(true);
  };
 
+ const name = "SALES"
+
  return (
   <div className="page-wrapper">
    <div className="page-content dashboard-filter">
@@ -93,7 +113,7 @@ export default function Dashboards(props) {
      componentType="Dashboard-Sales"
      filterData={filterData}
      beforeFilter={beforeFilter}
-     name={props.name}
+     name={name}
     />
     <div
      className="dash-wrapper dashboard_filter_class"
@@ -105,15 +125,15 @@ export default function Dashboards(props) {
         <div className="col-md-12">
          <div className="d-inline">
           <h2 className="dashboard-headings d-inline text-dark">
-           {`${props.name} DASHBOARD`}
+           {`${name} DASHBOARD`}
           </h2>
-          {data.userRole != "AGENT" ||
-           data.userRole != "MANAGER" ||
-           data.userRole != "QUALITY_MANAGER" ||
-           data.userRole != "QUALITY_ASSOCIATE" ||
-           data.userRole != "QUALITY_TRAINER" ||
-           data.userRole != "SUPERVISOR" ||
-           (data.userRole != "TEAM_LEAD" && (
+          {data?.userRole != "AGENT" ||
+           data?.userRole != "MANAGER" ||
+           data?.userRole != "QUALITY_MANAGER" ||
+           data?.userRole != "QUALITY_ASSOCIATE" ||
+           data?.userRole != "QUALITY_TRAINER" ||
+           data?.userRole != "SUPERVISOR" ||
+           (data?.userRole != "TEAM_LEAD" && (
             <span className="badge rounded-pill bg-success text-dark active-filter-on-table">
              {localData?.momentBucket}
              <a href="javascript:;"></a>
@@ -154,14 +174,14 @@ export default function Dashboards(props) {
        </div>
       </div>
       {defaultFilteredData?.externalIds ? (
-       props.dasboardStructure.length != 0 ? (
-        props.dasboardStructure.map((data, ind) => {
+       dasboardStructure?.length != 0 ? (
+        dasboardStructure?.map((data, ind) => {
          if (data.type === "SINGLE_CAROUSEL") {
           return (
            <SingleCarouselManager
             key={ind}
             data={data}
-            name={props.name}
+            name={name}
             showDetailModal={showDetailModal}
             widgetData={widgetData}
             defaultFilteredData={defaultFilteredData}
@@ -179,10 +199,10 @@ export default function Dashboards(props) {
     </div>
 
     {defaultFilteredData?.externalIds
-     ? props.dasboardStructure
-       ? props.dasboardStructure.msg
+     ? dasboardStructure
+       ? dasboardStructure.msg
          ? ""
-         : props.dasboardStructure.map((data, ind) => {
+         : dasboardStructure?.map((data, ind) => {
             if (data.type === "DOUBLE_CAROUSEL") {
              let doubleCarouselData = carouselStructure();
              return (
@@ -194,7 +214,7 @@ export default function Dashboards(props) {
                   showDetailModal={showDetailModal}
                   widgetData={widgetData}
                   defaultFilteredData={defaultFilteredData}
-                  name={props.name}
+                  name={name}
                  />
                 </div>
                </div>
@@ -213,7 +233,7 @@ export default function Dashboards(props) {
                 widgetData={widgetData}
                 callApi={viewItems[`FIXED_ROW-${ind}`]}
                 defaultFilteredData={defaultFilteredData}
-                name={props.name}
+                name={name}
                />
               </Row>
              );
@@ -229,7 +249,7 @@ export default function Dashboards(props) {
      closeButton={closeButton}
      widgetName={widgetName}
      widgetData={widgetData}
-     name={props.name}
+     name={name}
     />
    ) : (
     ""

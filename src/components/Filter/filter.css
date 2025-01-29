@@ -1,0 +1,79 @@
+.MuiSlider-rail{
+    background-color: #ccc !important;
+  }
+  .MuiSlider-thumb{
+    height: 15px !important;
+    width: 15px !important;
+  }
+  
+  .MuiSlider-valueLabel{
+    background-color: #0077B6 !important;
+    border-radius: 40% !important;
+    top: -7px !important;
+    padding: 0.4rem 0.2rem !important;
+    min-width: 24px;
+  }
+  .MuiSlider-valueLabel:before {
+    width: 10px !important;
+    height: 10px !important;
+    bottom: 1px !important;
+  }
+  .filters_btn{
+    position: fixed;
+    bottom: 10px;
+  }
+  .filters_btn button{
+    width: 112px;
+  }
+  .filter_scroll{
+    overflow: auto;
+    height: 78vh;
+  }
+  .filter_scroll::-webkit-scrollbar
+  {
+      width: 8px;
+      background-color: #F5F5F5;
+      
+  }
+  .filter_scroll::-webkit-scrollbar-track
+  {
+      box-shadow: inset 0 0 6px rgba(160, 158, 158, 0.3);
+    }
+  
+    .filter_scroll::-webkit-scrollbar-thumb
+  {
+      background-color: rgb(145, 146, 146);
+        border-radius: 40px;
+  }
+  
+  .commonFont{
+    font-size: .875rem;
+    padding: 0.25rem 0.5rem;
+  }
+  .commonFont2>.MuiOutlinedInput-root{
+    padding: 4px 8px !important;
+  }
+  .commonFont2>div{
+    padding: 4px 8px !important;
+  }
+  .commonFont2>div>input{
+    font-size: .875rem;
+  }
+  .remove-m .MuiPaper-root.MuiPaper-elevation{
+    margin-top:0px !important;
+  }
+
+  .filter-Hr{
+    margin: 8px 0 8px;
+  }
+
+
+  select.form-select option{
+    padding: 20px 0px !important;
+      height: 30px;
+  }
+  select.form-select option:hover, select.form-select option:focus {
+    box-shadow: 0 0 10px 100px #1882A8 inset;
+    background-color: #0077B6;
+    color: #fff;
+  }

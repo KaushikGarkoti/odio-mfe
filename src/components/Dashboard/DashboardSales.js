@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
-import dashboardService from "../Services/dashboard.service";
+import dashboardService from "@services";
 import Dashboards from "./DashboardSales/SalesDashboard/Dashboards"
-import { USER_DETAIL } from "../../Constants/constant";
-import NodataFound from "../Commons/NoDataFound";
-import Loading from "../Commons/Loading"
+import { USER_DETAIL } from "@constants";
+//import NodataFound from "../Commons/NoDataFound";
+import Loading from "./Loading"
 
 export default function DashboardSales() {
 
@@ -36,7 +36,7 @@ export default function DashboardSales() {
 					<Loading variant="light" />
 				</div>
 			) :
-				dasboardStructure.length > 0 ? <Dashboards dasboardStructure={dasboardStructure} name={"SALES"} /> : <NodataFound />
+				dasboardStructure.length > 0 ? <Dashboards dasboardStructure={dasboardStructure} name={"SALES"} /> : <h2>No Data found</h2>
 			}
 		</>
 	);

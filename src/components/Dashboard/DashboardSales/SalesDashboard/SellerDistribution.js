@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Col, OverlayTrigger, Popover } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
 import "./Seller.css";
-import Loading from "../../../Commons/Loading"
+import Loading from "../../Loading"
 import { useHistory } from "react-router-dom";
 
 

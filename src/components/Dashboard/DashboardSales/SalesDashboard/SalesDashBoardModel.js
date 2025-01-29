@@ -6,12 +6,12 @@ import React, { useState, useEffect } from "react";
 import AggregatedGraph from "./AggregatedGraph";
 import LineGraph from "./LineGraph";
 import BarGraph from "./BarGraph";
-import dashboardService from "../../../Services/dashboard.service";
+import dashboardService from "@services";
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Loading from "../../../Commons/Loading";
+import Loading from "../../Loading";
 import toaster from "../../../Toast/toaster";
 
 export default function SalesDashBoardModel(props) {

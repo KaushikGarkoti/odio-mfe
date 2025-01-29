@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Col } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
 import { Popover, OverlayTrigger } from "react-bootstrap";
-import Loading from "../../../Commons/Loading";
+import Loading from "../../Loading";
 import ComplianceView from "./ComplianceView";
 import { useMemo, useState } from "react";
 

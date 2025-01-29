@@ -1,7 +1,7 @@
 import React from "react"
 import { Card, Col, Popover, OverlayTrigger } from "react-bootstrap"
 import "./Seller.css"
-import Loading from "../../../Commons/Loading"
+import Loading from "../../Loading"
 import { useHistory } from "react-router-dom"
 
 

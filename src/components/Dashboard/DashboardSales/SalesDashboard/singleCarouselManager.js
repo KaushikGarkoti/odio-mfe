@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SingalCarousel from "./SingalCarousel";
-import dashboardService from "../../../Services/dashboard.service";
+import dashboardService from "@services";
 import Carousel, { consts } from "react-elastic-carousel";
 
 const SingleCarouselManager = (props) => {

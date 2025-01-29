@@ -3,17 +3,22 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 
-const deps = require("./package.json").dependencies;
-
 const printCompilationMessage = require('./compilation.config.js');
+const { dependencies } = require('./package.json');
+
 
 module.exports = (_, argv) => ({
   output: {
     publicPath: "http://localhost:3002/",
   },
-
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+    alias: {
+        '@constants': path.resolve(__dirname, 'src/constants'),
+        '@services': path.resolve(__dirname, 'src/services'),
+        '@utils': path.resolve(__dirname, 'src/utils'),
+        '@assets': path.resolve(__dirname, 'src/assets')
+    }
   },
 
   devServer: {
@@ -64,19 +69,15 @@ module.exports = (_, argv) => ({
     new ModuleFederationPlugin({
       name: "odio_v2_dashboard",
       filename: "remoteEntry.js",
-      remotes: {},
-      exposes: {},
-      shared: {
-        ...deps,
-        react: {
-          singleton: true,
-          requiredVersion: deps.react,
-        },
-        "react-dom": {
-          singleton: true,
-          requiredVersion: deps["react-dom"],
-        },
+      remotes: {
       },
+      exposes: {
+          "DashboardSales": "./src/components/Dashboard/DashboardSales.js"
+      },
+      shared: {
+        ...dependencies,
+        react: { singleton: true,  import: 'react', shareScope: 'default', requiredVersion: dependencies['react']},
+      }
     }),
     new HtmlWebPackPlugin({
       template: "./src/index.html",

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DoubleCarousel from "./DoubleCarousal";
-import dashboardService from "../../../Services/dashboard.service";
+import dashboardService from "@services";
 import Carousel, { consts } from "react-elastic-carousel";
 
 const DoubleCarouselManager = (props) => {

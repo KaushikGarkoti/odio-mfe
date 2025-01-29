@@ -1,7 +1,7 @@
 import React from 'react';
 import {Accordion, Modal, Table } from "react-bootstrap";
 import './Seller.css'
-import Loading from "../../../Commons/Loading";
+import Loading from "../../Loading";
 
 export default function PerformanceModal(props){
     return(

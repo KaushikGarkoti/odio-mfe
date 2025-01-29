@@ -2,7 +2,7 @@ import { Button, colors } from "@mui/material";
 import { Card, Tabs, Col, Tab } from "react-bootstrap";
 import React,{ useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
-import dashboardService from "../../../Services/dashboard.service";
+import dashboardService from "@services";
 
 export default function CallDistribution(props) {
   

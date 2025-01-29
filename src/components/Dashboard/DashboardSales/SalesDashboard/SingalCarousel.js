@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Col, OverlayTrigger, Popover } from "react-bootstrap"
-import Loading from "../../../Commons/Loading";
+import Loading from "../../Loading";
 import ApexChart from "../../../Graphs/ApexChart";
 import { useHistory } from "react-router-dom";
 

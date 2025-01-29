@@ -3,8 +3,8 @@ import Seller from "./Seller";
 import SellerDistribution from "./SellerDistribution";
 import WordCloudd from "./WordCloud";
 import MomentAndSignalsPerformance from "./MomentAndSignalsPerformance";
-import { SALES_DASHBOARD_COMPONENT_NAME } from '../../../../Constants/Enum'
-import dashboardService from "../../../Services/dashboard.service";
+import { SALES_DASHBOARD_COMPONENT_NAME } from '@constants'
+import dashboardService from "@services";
 import AhtAndCompliance from "./AhtAndCompliance";
 
 const DashboardComponentsManager = (props) => {

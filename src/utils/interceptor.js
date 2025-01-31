@@ -25,16 +25,28 @@ apiCall.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+
 apiCall.interceptors.response.use(
   (response) => response,
   async (error) => {
+    if (!error.response) {
+      console.error('Network error:', error);
+      toaster.error(
+        'Network error: Unable to connect to the server. Please check your internet connection or CORS policy.'
+      );
+      return Promise.reject(error);
+    }
     const { response: errorResponse, config: originalRequest } = error;
 
     if (errorResponse) {
       const { status, data } = errorResponse;
       const message = data?.message || '';
+      const dataStatus = data?.status
+      if(status == 400) {
+        toaster.error('Bad Request');
+      }
 
-      switch (status) {
+      switch (dataStatus) {
         case 400:
           toaster.error(message || 'Bad Request');
           break;
@@ -98,6 +110,8 @@ apiCall.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+
 
 const handleLogout = () => {
   localStorage.clear();

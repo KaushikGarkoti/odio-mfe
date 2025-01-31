@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import SingalCarousel from "./SingalCarousel";
 import dashboardService from "@services";
-import Carousel, { consts } from "react-elastic-carousel";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const SingleCarouselManager = (props) => {
     let { data, name, showDetailModal, widgetData, defaultFilteredData } = props;
@@ -111,8 +113,8 @@ const SingleCarouselManager = (props) => {
                     let item = listEntities.find(y => (y[1] === x.header));
                     x.header && item && (respFormat[item[0]] = { data: x.widgetsDataResponses, url: x.url })
                 });
-                await setCarusalData({ ...carusalData, ...respFormat });
-                await setLoading(false);
+                setCarusalData({ ...carusalData, ...respFormat });
+                setLoading(false);
             } catch (err) {
                 setLoading(false);
             }
@@ -123,9 +125,10 @@ const SingleCarouselManager = (props) => {
         }
     }, [apilist]);
 
-    const handleSingleCarl = (currentItem) => {
+    const handleSingleCarl = (currentItemIndex) => {
+        console.log('singleCarouselData ->', data)
         let result = [];
-        (data?.list || []).forEach((x, i) => { ((i >= currentItem.index) && (i < (currentItem.index + 5))) && (result.push([x.wgt_code, x.wgt_name])) });
+        (data?.list || []).forEach((x, i) => { ((i >= currentItemIndex) && (i < (currentItemIndex + 5))) && (result.push([x.wgt_code, x.wgt_name])) });
         setApiList({ ...result.reduce((a, v) => ({ ...a, [v[0]]: v[1] }), {}) });
     };
 
@@ -139,7 +142,7 @@ const SingleCarouselManager = (props) => {
     }
 
     return (
-        <Carousel onChange={handleSingleCarl} pagination={false} itemsToShow={5} itemsToScroll={5} className="ps-0"
+        <Slider afterChange={handleSingleCarl} dots={false} pagination={false} slidesToShow={5} slidesToScroll={5} className="ps-0"
             {...loading ? { renderArrow: myArrow } : {}}
         >
             {name ? data.list.map((mapData, index) => {
@@ -149,7 +152,7 @@ const SingleCarouselManager = (props) => {
                 );
             })
                 : ""}
-        </Carousel>
+        </Slider>
     )
 };
 export default React.memo(SingleCarouselManager);

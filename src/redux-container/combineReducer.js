@@ -15,6 +15,7 @@ import liveAssistReducer from "./liveAssist/reducer";
 import nonLiveReducer from "./nonLiveCall/reducer";
 import knowledgeBaseReducer from "./knowledgeBase/reducer";
 import commonReducer from "./commons/reducer";
+import wordCloudReducer from "./wordCloud/reducer";
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -34,6 +35,7 @@ const createRootReducer = (history) =>
     commonReducer: commonReducer,
     router: connectRouter(history),
     knowledgeBase: knowledgeBaseReducer,
+    wordCloud: wordCloudReducer
   });
 
 export default createRootReducer;

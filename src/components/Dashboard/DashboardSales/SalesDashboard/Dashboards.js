@@ -10,6 +10,7 @@ import DashboardComponentsManager from "./DashboardComponentsManager";
 import { themeButtonPrimary, themePrimary } from "@assets/css";
 import { positionFormat } from "@utils";
 import dashboardService from "../../../../services/dashboard.service";
+import Loading from "../../Loading";
 
 export default function Dashboards(props) {
  const [show, setShow] = useState(false);
@@ -46,13 +47,14 @@ export default function Dashboards(props) {
  };
 
  const handleScroll = () => {
-  let ids = (dasboardStructure || [])
-   .map((x, i) => (x?.type === "FIXED_ROW" ? `FIXED_ROW-${i}` : ""))
-   ?.filter((x) => x);
+  console.log('hereeeeee', dasboardStructure)
+  let ids = (dasboardStructure || []).map((x, i) => (x?.type === "FIXED_ROW" ? `FIXED_ROW-${i}` : ""))?.filter((x) => x);
+  console.log(ids);
   (ids || [])?.forEach((x, index) => {
    let desiredElementPosition = document
     .getElementById(x)
     ?.getBoundingClientRect()?.bottom;
+    console.log('desiredElement', desiredElementPosition);
    if (desiredElementPosition < window?.innerHeight) {
     // Only update state if necessary
     setViewItems((state) => {
@@ -79,8 +81,11 @@ export default function Dashboards(props) {
  function getDashboardSt() {
   let val = { "clientExternalId": data.externalId, "entityType": "SALES" }
   if (p.userRole != 'AGENT') {
+    setLoader(true)
     dashboardService.getDashboard(val).then(res => {
       setDasboardStructure(res ? res.data.data : '');
+      setLoader(false)
+
     })
   }
 }
@@ -95,7 +100,7 @@ useEffect(() => {
   return () => {
    window.removeEventListener("scroll", handleScroll);
   };
- }, []);
+ }, [dasboardStructure]);
 
  const localData = JSON.parse(localStorage.getItem("AGENT"));
 
@@ -105,9 +110,9 @@ useEffect(() => {
  };
 
  const name = "SALES"
-
- return (
-  <div className="page-wrapper">
+ return loader ? ( <div className="loader-container">
+          <Loading variant="light" />
+        </div>):  <div className="page-wrapper">
    <div className="page-content dashboard-filter">
     <Filter
      componentType="Dashboard-Sales"
@@ -255,5 +260,4 @@ useEffect(() => {
     ""
    )}
   </div>
- );
 }

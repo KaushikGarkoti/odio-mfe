@@ -4,13 +4,13 @@ const path = require('path');
 const Dotenv = require('dotenv-webpack');
 
 const printCompilationMessage = require('./compilation.config.js');
-const { dependencies } = require('./package.json');
 
 
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:3002/",
+    publicPath: "auto",
   },
+  devtool: "source-map",
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
     alias: {
@@ -39,8 +39,26 @@ module.exports = (_, argv) => ({
           }
         })
       })
-    }
-  },
+    },
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    proxy: {
+      '/api': {
+        target: 'http://65.108.148.94/',
+        changeOrigin: true,
+        secure: false,
+        logLevel: 'debug', 
+        pathRewrite: { '^/api': '' },
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+        onProxyReq: (proxyReq) => {
+          proxyReq.setHeader("Origin", "http://localhost:3000");
+        },
+      },
+    },
+},
 
   module: {
     rules: [
@@ -72,12 +90,17 @@ module.exports = (_, argv) => ({
       remotes: {
       },
       exposes: {
-          "DashboardSales": "./src/components/Dashboard/DashboardSales.js"
+          "./DashboardSales": "./src/components/Dashboard/DashboardSales.js",
+          "./DashboardSupport": "./src/components/Dashboard/DashboardSupport.js"
       },
       shared: {
-        ...dependencies,
-        react: { singleton: true,  import: 'react', shareScope: 'default', requiredVersion: dependencies['react']},
-      }
+        react: { singleton: true, requiredVersion: "^17.0.2" },
+        "react-dom": { singleton: true, requiredVersion: "^17.0.2" },
+        'react-redux': { singleton: true },
+        'react-router-dom': {singleton: true, requiredVersion: "^5.2.1"},
+        "axios": {singleton: true, requiredVersion: "^0.24.0"},
+
+      },
     }),
     new HtmlWebPackPlugin({
       template: "./src/index.html",

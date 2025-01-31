@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import DoubleCarousel from "./DoubleCarousal";
 import dashboardService from "@services";
-import Carousel, { consts } from "react-elastic-carousel";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 const DoubleCarouselManager = (props) => {
     let { doubleCarouselData, name, showDetailModal, widgetData, defaultFilteredData } = props;
@@ -148,7 +151,7 @@ const DoubleCarouselManager = (props) => {
     }
 
     return (
-        <Carousel onChange={handleDoubleCarl} pagination={false} itemsToShow={4} itemsToScroll={4} width={100} className="ps-0"
+        <Slider afterChange={handleDoubleCarl} pagination={false} slidesToShow={4} slidesToScroll={4} width={100} className="ps-0"
             {...loading ? { renderArrow: myArrow } : {}}
         >
             {doubleCarouselData
@@ -167,7 +170,7 @@ const DoubleCarouselManager = (props) => {
                     );
                 })
                 : ""}
-        </Carousel>
+        </Slider>
     );
 };
 export default React.memo(DoubleCarouselManager);

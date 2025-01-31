@@ -19,7 +19,7 @@ export default function DashboardFilters(props) {
   let dateFormat = JSON.parse(localStorage.getItem("TIME_FORMAT"))?.value
   const [opendp, setOpendp] = useState(false);
   const [opendp1, setOpendp1] = useState(false);
-  const [dateList, setDateList] = useState("")
+  const [dateList, setDateList] = useState([])
   const [coeList, setCoeList] = useState()
   const [momentBucketList, setMomentBucketList] = useState()
   const [callMoment, setCallMoment] = useState(false)
@@ -47,7 +47,7 @@ export default function DashboardFilters(props) {
       let date = res ? res.data ? res.data.data.filter((e) => {
         return e.type == "CURRENT" || e.type == "GLOBAL"
       }) : '' : ''
-      setDateList(date);
+      setDateList(date || []);
       setCallMoment(true)
     })
   }
@@ -95,12 +95,12 @@ export default function DashboardFilters(props) {
         let dates = localData?.selectedRange ? dateList.filter(function (el) {
           return el.id == localData?.selectedRange;
         }) : [dateList[4]];
-        let dd = (dates[0].fromDate || '').split("-")[2]
-        let mm = (dates[0].fromDate || '').split("-")[1]
-        let yyyy = (dates[0].fromDate || '').split("-")[0]
-        let dd_1 = (dates[0].toDate || '').split("-")[2]
-        let mm_1 = (dates[0].toDate || '').split("-")[1]
-        let yyyy_1 = (dates[0].toDate || '').split("-")[0]
+        let dd = (dates[0]?.fromDate || '').split("-")[2]
+        let mm = (dates[0]?.fromDate || '').split("-")[1]
+        let yyyy = (dates[0]?.fromDate || '').split("-")[0]
+        let dd_1 = (dates[0]?.toDate || '').split("-")[2]
+        let mm_1 = (dates[0]?.toDate || '').split("-")[1]
+        let yyyy_1 = (dates[0]?.toDate || '').split("-")[0]
         if (localData?.selectedRange) {
           dateF = `${dd < 10 && !dd.includes('0') ? '0' + dd : dd}-${mm < 10 && !mm.includes('0') ? '0' + mm : mm}-${yyyy}`
           dateT = `${dd_1 < 10 && !dd_1.includes('0') ? '0' + dd_1 : dd_1}-${mm_1 < 10 && !mm_1.includes('0') ? '0' + mm_1 : mm_1}-${yyyy_1}`
@@ -109,7 +109,7 @@ export default function DashboardFilters(props) {
           dateT = `${dd_1}-${mm_1}-${yyyy_1}`
         }
 
-        if (dateList != '') {
+        if (dateList.length) {
           props.defaultDashboardData({
             fromDate: localData && localData.selectedRange == 9 && localData.fromD || dateT,
             toDate: localData && localData.selectedRange == 9 && localData.toD || dateF,
@@ -132,12 +132,12 @@ export default function DashboardFilters(props) {
       let userCoe = res ? res.data.data ? res.data.data.map((item) => {
         return item.externalId
       }) : '' : ''
-      let dd = dateList[4]?.fromDate.split("-")[2]
-      let mm = dateList[4]?.fromDate.split("-")[1]
-      let yyyy = dateList[4]?.fromDate.split("-")[0]
+      let dd = dateList[4]?.fromDate?.split("-")[2]
+      let mm = dateList[4]?.fromDate?.split("-")[1]
+      let yyyy = dateList[4]?.fromDate?.split("-")[0]
       let dateF = `${dd}-${mm}-${yyyy}`
-      let dd_1 = dateList[4]?.toDate.split("-")[2]
-      let mm_1 = dateList[4]?.toDate.split("-")[1]
+      let dd_1 = dateList[4]?.toDate?.split("-")[2]
+      let mm_1 = dateList[4]?.toDate?.split("-")[1]
       let yyyy_1 = dateList?.[4]?.toDate.split("-")[0]
       let dateT = `${dd_1}-${mm_1}-${yyyy_1}`
       let coeId = res ? res.data.data ? res.data.data.map((item) => {
@@ -146,7 +146,7 @@ export default function DashboardFilters(props) {
       let coeName = res ? res.data.data ? res.data.data.map(item => {
         return item.coeName
       }) : "" : ""
-      if (dateList != '') {
+      if (dateList.length) {
         props.defaultDashboardData({
           fromDate: localData && localData.fromD ? localData.fromD : dateT,
           toDate: localData && localData.toD ? localData.toD : dateF,
@@ -248,17 +248,19 @@ export default function DashboardFilters(props) {
       let dates = dateList.filter(function (el) {
         return el.id == e.target.value;
       })
-      let dd = dates[0].fromDate.split("-")[2]
-      let mm = dates[0].fromDate.split("-")[1]
-      let yyyy = dates[0].fromDate.split("-")[0]
-
-      let dd_1 = dates[0].toDate.split("-")[2]
-      let mm_1 = dates[0].toDate.split("-")[1]
-      let yyyy_1 = dates[0].toDate.split("-")[0]
-
-      let dateF = `${dd < 10 && !dd.includes('0') ? '0' + dd : dd}-${mm < 10 && !mm.includes('0') ? '0' + mm : mm}-${yyyy}`
-      let dateT = `${dd_1 < 10 && !dd_1.includes('0') ? '0' + dd_1 : dd_1}-${mm_1 < 10 && !mm_1.includes('0') ? '0' + mm_1 : mm_1}-${yyyy_1}`
-      setFilteredData({ ...filteredData, fromDate: dateT, toDate: dateF, selectedDate: dateList[e.target.value - 1].name, selectedRange: e.target.value })
+      if(dates.length) {
+        let dd = dates[0].fromDate.split("-")[2]
+        let mm = dates[0].fromDate.split("-")[1]
+        let yyyy = dates[0].fromDate.split("-")[0]
+  
+        let dd_1 = dates[0].toDate.split("-")[2]
+        let mm_1 = dates[0].toDate.split("-")[1]
+        let yyyy_1 = dates[0].toDate.split("-")[0]
+  
+        let dateF = `${dd < 10 && !dd.includes('0') ? '0' + dd : dd}-${mm < 10 && !mm.includes('0') ? '0' + mm : mm}-${yyyy}`
+        let dateT = `${dd_1 < 10 && !dd_1.includes('0') ? '0' + dd_1 : dd_1}-${mm_1 < 10 && !mm_1.includes('0') ? '0' + mm_1 : mm_1}-${yyyy_1}`
+        setFilteredData({ ...filteredData, fromDate: dateT, toDate: dateF, selectedDate: dateList[e.target.value - 1].name, selectedRange: e.target.value })
+      }
     }
   }
 

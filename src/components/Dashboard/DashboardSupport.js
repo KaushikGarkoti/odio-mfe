@@ -21,7 +21,7 @@ export default function DashboardSupport() {
 
 	useEffect(() => {
 		setLoader(true)
-		document.title = "Dashboard - Odio";
+		document.title = "Dashboard";
 		getDashboardSt()
 	}, [])
 

@@ -5,7 +5,7 @@ import AnyChart from "anychart-react"
 import { apiCall } from "@utils";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { USER_DETAIL } from "@constants";
-import { useDataDispatch, useDataState } from "./WordCloudApiState";
+import { useDispatch, useSelector } from "react-redux";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
@@ -13,8 +13,8 @@ export default function WordCloudd(props) {
   const chartRef = useRef(null);
   const [isClicked, setIsClicked] = useState(false)
   const [pageNumber, setPage] = useState(1)
-  const dispatch = useDataDispatch();
-  const wordData = useDataState()
+  const dispatch = useDispatch();
+  const wordData = useSelector(state => state.wordCloud)
   const [words, setWords] = useState([]);
 
   let wordCloudData = props.data.data || [];
@@ -71,10 +71,10 @@ export default function WordCloudd(props) {
   )
 
   useEffect(() => {
-    if (wordData.groupIds.length <= 100 && wordData.groupIds.length !== 0) {
+    if (wordData?.groupIds?.length <= 100 && wordData?.groupIds?.length !== 0) {
       history.push(`/sales_conversations`);
     }
-  }, [wordData.groupIds.length]);
+  }, [wordData?.groupIds?.length]);
 
   const wordApi = async (e, pageNumber) => {
     return apiCall.post("/odio/api/wordCloud/search", {

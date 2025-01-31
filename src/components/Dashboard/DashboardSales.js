@@ -16,16 +16,17 @@ export default function DashboardSales() {
 		var p = localStorage.getItem(USER_DETAIL)
 		let data = JSON.parse(p);
 		let val = { "clientExternalId": data.externalId, "entityType": "SALES" }
-		if (p.userRole != 'AGENT') {
+		if (p?.userRole != 'AGENT') {
 			dashboardService.getDashboard(val).then(res => {
 				setDasboardStructure(res ? res.data.data : '');
 				setLoader(false)
 			})
+			.catch(err => console.log(err))
 		}
 	}
 	useEffect(() => {
 		setLoader(true)
-		document.title = "Dashboard - Odio";
+		document.title = "Dashboard";
 		getDashboardSt()
 	}, [])
 

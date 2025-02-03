@@ -1,9 +1,40 @@
 import React, { useEffect, useState } from "react";
 import DoubleCarousel from "./DoubleCarousal";
 import dashboardService from "@services";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import StyledSlider from "../../../common/StyledSlider"
+
+var sliderSettings = {
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ],
+  }
 
 
 const DoubleCarouselManager = (props) => {
@@ -141,18 +172,31 @@ const DoubleCarouselManager = (props) => {
         setApiList(result.reduce((a, v) => ({ ...a, [v[0]]: v[1] }), {}));
     };
 
-    const myArrow = ({ type, onClick }) => {
-        const pointer = type === consts.PREV ? '❮' : '❯'
+    const MyArrow = ({ className, style, onClick }) => {
+        const isPrev = className?.includes("slick-prev");
+        const pointer = isPrev ? "❮" : "❯";
+    
         return (
-            <button onClick={onClick} disabled={loading} className="doubleCarousel-arrows" >
+            <button
+                onClick={onClick}
+            >
                 {pointer}
             </button>
-        )
-    }
+        );
+    };
+    
+    
 
     return (
-        <Slider afterChange={handleDoubleCarl} pagination={false} slidesToShow={4} slidesToScroll={4} width={100} className="ps-0"
-            {...loading ? { renderArrow: myArrow } : {}}
+        <StyledSlider 
+        afterChange={handleDoubleCarl} 
+        pagination={false} 
+        slidesToShow={4} 
+        slidesToScroll={4} 
+        width={100} 
+        className="ps-0"
+        {...(loading ? { prevArrow: <MyArrow/>, nextArrow: <MyArrow/> } : {})}
+
         >
             {doubleCarouselData
                 ? doubleCarouselData.map((row, index) => {
@@ -170,7 +214,7 @@ const DoubleCarouselManager = (props) => {
                     );
                 })
                 : ""}
-        </Slider>
+        </StyledSlider>
     );
 };
 export default React.memo(DoubleCarouselManager);

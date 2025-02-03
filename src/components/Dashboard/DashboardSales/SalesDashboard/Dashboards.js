@@ -80,7 +80,7 @@ export default function Dashboards(props) {
  };
  function getDashboardSt() {
   let val = { "clientExternalId": data.externalId, "entityType": "SALES" }
-  if (p.userRole != 'AGENT') {
+  if (data?.userRole != 'AGENT') {
     setLoader(true)
     dashboardService.getDashboard(val).then(res => {
       setDasboardStructure(res ? res.data.data : '');

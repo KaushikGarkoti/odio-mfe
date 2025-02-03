@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SingalCarousel from "./SingalCarousel";
 import dashboardService from "@services";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import StyledSlider from "../../../common/StyledSlider";
 
 const SingleCarouselManager = (props) => {
     let { data, name, showDetailModal, widgetData, defaultFilteredData } = props;
@@ -142,7 +140,7 @@ const SingleCarouselManager = (props) => {
     }
 
     return (
-        <Slider afterChange={handleSingleCarl} dots={false} pagination={false} slidesToShow={5} slidesToScroll={5} className="ps-0"
+        <StyledSlider afterChange={handleSingleCarl} dots={false} pagination={false} slidesToShow={5} slidesToScroll={5} className="ps-0"
             {...loading ? { renderArrow: myArrow } : {}}
         >
             {name ? data.list.map((mapData, index) => {
@@ -152,7 +150,7 @@ const SingleCarouselManager = (props) => {
                 );
             })
                 : ""}
-        </Slider>
+        </StyledSlider>
     )
 };
 export default React.memo(SingleCarouselManager);

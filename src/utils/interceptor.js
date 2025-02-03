@@ -29,13 +29,7 @@ apiCall.interceptors.request.use(
 apiCall.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (!error.response) {
-      console.error('Network error:', error);
-      toaster.error(
-        'Network error: Unable to connect to the server. Please check your internet connection or CORS policy.'
-      );
-      return Promise.reject(error);
-    }
+
     const { response: errorResponse, config: originalRequest } = error;
 
     if (errorResponse) {
@@ -57,20 +51,10 @@ apiCall.interceptors.response.use(
             store.dispatch({ type: REQUEST_FAILURE, payload: false });
           } else {
             if (!tokenRefreshPromise) {
-              tokenRefreshPromise = apiCall
-                .post('/odio/api/refresh')
-                .then((res) => {
-                  const refreshedToken = res.data.data;
-                  localStorage.setItem(ACCESS_TOKEN, refreshedToken);
-                  return refreshedToken;
-                })
-                .catch(() => {
-                  toaster.error('Unauthorized Access');
-                  handleLogout();
-                })
-                .finally(() => {
-                  tokenRefreshPromise = null;
-                });
+              tokenRefreshPromise = getRefreshTokenPromise().catch(() => {
+                toaster.error("Session expired, please log in again.");
+                handleLogout();
+              });
             }
 
             try {
@@ -103,8 +87,6 @@ apiCall.interceptors.response.use(
         default:
           toaster.error('An unexpected error occurred');
       }
-    } else {
-      toaster.error('Bad Gateway');
     }
 
     return Promise.reject(error);
@@ -112,6 +94,18 @@ apiCall.interceptors.response.use(
 );
 
 
+const getRefreshTokenPromise = async () => {
+  try {
+    const response = await apiCall.post('/odio/api/refresh')
+    const refreshedToken = response.data.data;
+    localStorage.setItem(ACCESS_TOKEN, refreshedToken);
+    return refreshedToken;
+
+  } catch(err) {
+    Promise.reject(err)
+  } 
+ 
+}
 
 const handleLogout = () => {
   localStorage.clear();

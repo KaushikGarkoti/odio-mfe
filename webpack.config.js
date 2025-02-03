@@ -98,7 +98,7 @@ module.exports = (_, argv) => ({
         "react-dom": { singleton: true, requiredVersion: "^17.0.2" },
         'react-redux': { singleton: true },
         'react-router-dom': {singleton: true, requiredVersion: "^5.2.1"},
-        "axios": {singleton: true, requiredVersion: "^0.24.0"},
+        "axios": {requiredVersion: "^0.24.0"},
 
       },
     }),

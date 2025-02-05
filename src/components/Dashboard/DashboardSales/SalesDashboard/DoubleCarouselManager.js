@@ -1,41 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DoubleCarousel from "./DoubleCarousal";
 import dashboardService from "@services";
-import StyledSlider from "../../../common/StyledSlider"
-
-var sliderSettings = {
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ],
-  }
-
+import {StyledButton, StyledSlider} from '../../../common/StyledComponents'
 
 const DoubleCarouselManager = (props) => {
     let { doubleCarouselData, name, showDetailModal, widgetData, defaultFilteredData } = props;
@@ -172,16 +138,14 @@ const DoubleCarouselManager = (props) => {
         setApiList(result.reduce((a, v) => ({ ...a, [v[0]]: v[1] }), {}));
     };
 
-    const MyArrow = ({ className, style, onClick }) => {
-        const isPrev = className?.includes("slick-prev");
-        const pointer = isPrev ? "❮" : "❯";
-    
+    const MyArrow = ({ className, style, onClick, isPrev }) => {
         return (
-            <button
+            <StyledButton
+                style={{ ...style }}
                 onClick={onClick}
             >
-                {pointer}
-            </button>
+                {isPrev ? "❮" : "❯"} 
+            </StyledButton>
         );
     };
     
@@ -195,7 +159,8 @@ const DoubleCarouselManager = (props) => {
         slidesToScroll={4} 
         width={100} 
         className="ps-0"
-        {...(loading ? { prevArrow: <MyArrow/>, nextArrow: <MyArrow/> } : {})}
+        prevArrow = {<MyArrow isPrev/>} 
+        nextArrow = {<MyArrow/> }
 
         >
             {doubleCarouselData

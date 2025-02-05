@@ -211,9 +211,8 @@ useEffect(() => {
             if (data.type === "DOUBLE_CAROUSEL") {
              let doubleCarouselData = carouselStructure();
              return (
-              <div className="dash-wrapper-two" key={ind}>
-               <div className="row">
-                <div className="col-12 custom-rc-slider">
+               <div className="row dash-wrapper-two" key={ind}>
+                <div className="col-12">
                  <DoubleCarouselManager
                   doubleCarouselData={doubleCarouselData}
                   showDetailModal={showDetailModal}
@@ -223,7 +222,6 @@ useEffect(() => {
                  />
                 </div>
                </div>
-              </div>
              );
             }
             if (data.type === "FIXED_ROW") {

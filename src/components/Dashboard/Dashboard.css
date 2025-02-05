@@ -198,16 +198,6 @@
     animation: .75s linear infinite spinner-border;
 }
 
-.carousel-arrows {
-    width: 0;
-    font-size: 25px;
-    min-width: 0px;
-    background-color: #082545;
-    border: none;
-    color: #999 !important;
-    cursor: not-allowed;
-}
-
 .doubleCarousel-arrows {
     width: 0;
     font-size: 25px;
@@ -221,4 +211,54 @@
 .rec-carousel button:disabled {
     border-color: transparent;
     background-color: transparent;
+}
+
+/* Target only arrows inside .slick-slider */
+.slick-slider {
+    display: flex;
+}
+.slick-slider .slick-prev,
+.slick-slider .slick-next {
+    width: 0;
+    font-size: 25px;
+    min-width: 0px;
+    background-color: #082545;
+    border: none;
+    color: #999 !important;
+    cursor: not-allowed;
+}
+
+.slick-slider .slick-prev::before,
+.slick-slider .slick-next::before {
+    display: none; /* Hide default Slick arrows */
+}
+
+/* Custom arrow styles */
+.slick-slider .doubleCarousel-arrows {
+    display: block;
+    box-sizing: border-box;
+    transition: 0.3s;
+    background-color: rgba(103, 58, 183, 0.1);
+    color: rgb(153, 153, 153);
+    box-shadow: rgb(51, 51, 51) 0px 0px 2px 0px;
+    border-radius: 50%;
+    border: none;
+    padding: 0px;
+    line-height: 50px;
+    align-self: center;
+    cursor: pointer;
+    outline: none;
+    font-size: 25px;
+    min-width: 0;
+    width: 0;
+}
+
+.slick-slider .doubleCarousel-arrows:hover {
+    opacity: 0.8;
+}
+
+.slick-prev::before,
+.slick-next::before {
+    content: '' !important;  /* Remove default arrows */
+    display: none !important;
 }

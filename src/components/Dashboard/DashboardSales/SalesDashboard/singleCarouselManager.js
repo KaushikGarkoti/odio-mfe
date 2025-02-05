@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import SingalCarousel from "./SingalCarousel";
 import dashboardService from "@services";
-import StyledSlider from "../../../common/StyledSlider";
-
+import { StyledButton } from "../../../common/StyledComponents";
+import Slider from "react-slick";
 const SingleCarouselManager = (props) => {
     let { data, name, showDetailModal, widgetData, defaultFilteredData } = props;
     let initData = (data?.list || []).map((x) => x.wgt_code).reduce((a, v) => ({ ...a, [v]: '' }), {});
@@ -130,18 +130,29 @@ const SingleCarouselManager = (props) => {
         setApiList({ ...result.reduce((a, v) => ({ ...a, [v[0]]: v[1] }), {}) });
     };
 
-    const myArrow = ({ type, onClick }) => {
-        const pointer = type === consts.PREV ? '❮' : '❯'
+    const MyArrow = ({ className, style, onClick, isPrev }) => {
         return (
-            <button onClick={onClick} disabled={loading} className="carousel-arrows">
-                {pointer}
-            </button>
-        )
-    }
+            <StyledButton
+                style={{ ...style }}
+                onClick={onClick}
+            >
+                {isPrev ? "❮" : "❯"} 
+            </StyledButton>
+        );
+    };
+    
 
     return (
-        <StyledSlider afterChange={handleSingleCarl} dots={false} pagination={false} slidesToShow={5} slidesToScroll={5} className="ps-0"
-            {...loading ? { renderArrow: myArrow } : {}}
+    <div className="col col-md-12">
+        <Slider 
+        afterChange={handleSingleCarl} 
+        dots={false} 
+        pagination={false} 
+        slidesToShow={5} 
+        slidesToScroll={5} 
+        className="ps-0"
+        prevArrow={<MyArrow isPrev={true}/>}
+        nextArrow={<MyArrow/>}
         >
             {name ? data.list.map((mapData, index) => {
                 return (
@@ -150,7 +161,8 @@ const SingleCarouselManager = (props) => {
                 );
             })
                 : ""}
-        </StyledSlider>
+        </Slider>
+    </div>
     )
 };
 export default React.memo(SingleCarouselManager);
